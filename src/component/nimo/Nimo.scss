@@ -2,11 +2,11 @@ $breakpoint-alpha: 480px; // adjust to your needs
 
 .rwd-table {
   margin: 1em 0;
-  min-width: 300px; // adjust to your needs
+  min-width: 270px; // adjust to your needs
   width: 500px;
   text-align: center;
   @media (max-width: $breakpoint-alpha) {
-    width: 300px;
+    width: 100%px;
   }
   tr {
     border-top: 1px solid #ddd;
