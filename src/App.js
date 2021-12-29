@@ -31,16 +31,16 @@ function App() {
           <tr>
             <th>Tên</th>
             <th>Số vote</th>
-            <th style={{textAlign: 'center'}}>Hạng</th>
+            <th>Hạng</th>
           </tr>
         </thead>
         <tbody>
           { streamer.map((item, i) => {
             return(
               <tr key={i}>
-                <td data-th="Genre">{item.name}</td>
-                <td data-th="Year">{item.votes}</td>
-                <td data-th="Gross" style={{textAlign: 'center'}}>{item.rank}</td>
+                <td data-th="Tên">{item.name}</td>
+                <td data-th="Số vote">{item.votes}</td>
+                <td data-th="Hạng">{item.rank}</td>
               </tr>
             )
           })}
