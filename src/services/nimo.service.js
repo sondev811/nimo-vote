@@ -1,8 +1,9 @@
 import axios from 'axios';
 class Nimo {
-    async get() {
+    async get(endpoint) {
         try {
-            const url = 'https://nimo-vote-be.vercel.app/api';
+            // let url = `https://nimo-vote-be.vercel.app/api/${endpoint}`;
+            let url = `http://localhost:5000/api/${endpoint}`;
             const response = await axios.get(url);
             return response.data;
         } catch (error) {

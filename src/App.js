@@ -1,51 +1,27 @@
-import { useEffect, useState } from 'react';
+
 import './App.scss';
-import nimoService from './services/nimo.service';
+import {api, headers} from './constants/api.constant';
+import { useState } from 'react';
+import Nimo from './component/nimo/Nimo';
 function App() {
-  const [streamer, setStreamer] = useState([]);
-  const [loop, setLoop] = useState();
-  useEffect(() => {
-    const getNimoStreamer = async () => {
-      let response = await nimoService.get();
-      if (!response || !response.result) return;
-      setStreamer(response.result);
-      setLoop(
-        setInterval(async() => {
-          let response = await nimoService.get();
-          if (!response || !response.result) return;
-          setStreamer(response.result);
-        }, 10000)
-      );
-      return function cleanup() {
-        console.log("cleaning up");
-        clearInterval(loop);
-      };
-    }
-    getNimoStreamer();
-}, []);
+  const [type, setType] = useState(api.rising);
+  const [header, setHeader] = useState(headers[3].header);
+  const setHeaders = (header, type) => {
+    setHeader(header);
+    setType(type);
+  }
   return (
-    <div className="nimo-vote">
-      <h1>Giải streamer mới nhú(cập nhật sau 10s)</h1>
-      <table className="rwd-table">
-        <thead>
-          <tr>
-            <th>Tên</th>
-            <th>Số vote</th>
-            <th>Hạng</th>
-          </tr>
-        </thead>
-        <tbody>
-          { streamer.map((item, i) => {
+    <div className='nimo-vote'>
+      <ul className='menu'>
+        {
+          headers.map((item, i) => {
             return(
-              <tr key={i}>
-                <td data-th="Tên">{item.name}</td>
-                <td data-th="Số vote">{item.votes}</td>
-                <td data-th="Hạng">{item.rank}</td>
-              </tr>
+              <li key={i} className={type === item.type ? 'active' : ''} onClick={() => setHeaders(item.header, item.type)}>{item.header}</li>
             )
-          })}
-        </tbody>
-      </table>
+          })
+        }
+      </ul>
+      <Nimo type={type} header={header}/>
     </div>
   );
 }
